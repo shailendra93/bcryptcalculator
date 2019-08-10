@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+		crossorigin="anonymous">
+	
+	<style>
+	.footer {
+	  position: fixed;
+	  left: 0;
+	  bottom: 0;
+	  width: 100%;
+	  color: black;
+	  text-align: center;
+	}
+	</style>
+	
+	<title>Bcrypt Calculator</title>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h2 class="mt-4 mb-4">Generate BCrypt Passwords</h2>
+
+		<form action="#" th:action="@{/encode}" th:object="${bcryptMessage}"
+				method="POST">
+
+			<div class="form-group">
+				<label for="password">Enter a password for hashing</label> 
+				<input
+					type="text" th:field="*{textFromUser}"
+					class="form-control mb-2 col-4" placeholder="input" 
+					required="true" pattern=".*\S+.*" title="This field is required" /> 
+
+				<!--/*-->  
+					The .*\S+.* pattern requires at least one non-whitespace character, 
+					but also allows whitespace characters (spaces, tabs, carriage returns, etc.) at the beginning or end.	
+					Source: https://stackoverflow.com/a/17323588			
+				<!--*/-->
+				
+				<button type="submit" class="btn btn-primary mb-4">Calculate</button>
+			</div>
+
+		</form>
+
+		<div class="form-group">
+
+			<label for="generated-password">Password hash result:</label> 
+			<input type="text" 
+				   id="generated-password"
+				   th:value="${bcryptMessage.encodedPassword}" 
+				   class="form-control mb-2 col-8" readonly>
+				
+			<button class="btn btn-info" data-clipboard-action="copy" data-clipboard-target="#generated-password">Copy</button>
+
+		</div>
+
+		<div class="footer">
+		  <p>Powered by <a href="http://www.luv2code.com">www.luv2code.com</a></p>
+		</div>
+
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+    <!-- 3. Instantiate clipboard -->
+    <script>
+    var clipboard = new ClipboardJS('.btn');
+    </script>
+</body>
+
+</html>
