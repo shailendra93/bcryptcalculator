@@ -1,0 +1,2 @@
+# bcryptcalculator
+Generate BCrypt Passwords
